@@ -6,8 +6,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://yaswanth:<db_password>@cluster0.yjuup4a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+// Replace below with your actual MongoDB URI
+mongoose.connect('YOUR_MONGODB_URI_HERE')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
@@ -21,7 +21,7 @@ const DataSchema = new mongoose.Schema({
 
 const Entry = mongoose.model('Entry', DataSchema);
 
-// Routes
+// POST route
 app.post('/api/submit', async (req, res) => {
   try {
     const entry = new Entry(req.body);
@@ -32,6 +32,5 @@ app.post('/api/submit', async (req, res) => {
   }
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
